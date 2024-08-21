@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 // See https://github.com/jflex-de/jflex/issues/222
 @SuppressWarnings("FallThrough")
-public class lexicoJson {
+public class LexicoJson {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -321,11 +321,11 @@ public static int STRING  = 257;
    *               the scanner on.
    */
   public static void main(String argv[]) {
-    MeuLexico scanner;
+    LexicoJson scanner;
     if (argv.length == 0) {
       try {        
-          // scanner = new MeuLexico( System.in );
-          scanner = new MeuLexico( new InputStreamReader(System.in) );
+          // scanner = new LexicoJson( System.in );
+          scanner = new LexicoJson( new InputStreamReader(System.in) );
           while ( !scanner.zzAtEOF ) 
 	        System.out.println("token: "+scanner.yylex()+"\t<"+scanner.yytext()+">");
         }
@@ -339,7 +339,7 @@ public static int STRING  = 257;
       for (int i = 0; i < argv.length; i++) {
         scanner = null;
         try {
-          scanner = new MeuLexico( new java.io.FileReader(argv[i]) );
+          scanner = new LexicoJson( new java.io.FileReader(argv[i]) );
           while ( !scanner.zzAtEOF ) 	
                 System.out.println("token: "+scanner.yylex()+"\t<"+scanner.yytext()+">");
         }
@@ -366,7 +366,7 @@ public static int STRING  = 257;
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public lexicoJson(java.io.Reader in) {
+  public LexicoJson(java.io.Reader in) {
     this.zzReader = in;
   }
 
