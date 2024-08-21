@@ -11,15 +11,17 @@ import java.io.InputStreamReader;
 
 %{
 
-public static int IDENT		= 257;
-public static int NUM			= 258;
-
-public static int IF 			= 259; 
-public static int ELSE 		= 260;
-public static int PUBLIC 	= 261;
-public static int PRIVATE = 262;
-public static int CLASS		= 263;
-public static int EQUALS	= 264;
+public static int STRING  = 257;
+  public static int NUMBER  = 258;
+  public static int TRUE    = 259;
+  public static int FALSE   = 260;
+  public static int NULL    = 261;
+  public static int LBRACE  = 262;
+  public static int RBRACE  = 263;
+  public static int LBRACK  = 264;
+  public static int RBRACK  = 265;
+  public static int COMMA   = 266;
+  public static int COLON   = 267;
 
 
 /**
@@ -72,39 +74,20 @@ public static int EQUALS	= 264;
 
 %}
 
-DIGIT=		[0-9]+(\.[0-9]+)
-LETTER=		[a-zA-Z]
-WHITESPACE=	[ \t]
-STRING= [\"[^\"]*\
-LineTerminator = \r|\n|\r\n
-MEMBERS= MEMBER ',' MEMBERS
-OBJECT= '{'MEMBERS'}'
- 
-
-
 %%
 
-if				{return IF;}
-else			{return ELSE;} 
-public		{return PUBLIC;}
-private		{return PRIVATE;}
-class			{return CLASS;}
+\"([^\\\"]|\\[\"\\/bfnrt]|\\u[0-9a-fA-F]{4})*\" { return STRING; }
+[0-9]+(\.[0-9]+)?([eE][+-]?[0-9]+)? { return NUMBER; }
+"true" { return TRUE; }
+"false" { return FALSE; }
+"null" { return NULL; }
 
-{LETTER}({LETTER}|{DIGIT})* {return IDENT;}
-{DIGIT}+                    {return NUM;}
-{STRING}                    {return STRING;}
+"{" { return LBRACE; }
+"}" { return RBRACE; }
+"[" { return LBRACK; }
+"]" { return RBRACK; }
+"," { return COMMA; }
+":" { return COLON; }
 
-"=" |
-"+" |
-"*" |
-";" |
-"{" |
-"}" |
-"." |
-"," |
-"(" |
-")"                         {return yytext().charAt(0);}
-"=="                        {return EQUALS;}
-{WHITESPACE}+               { }
-{LineTerminator}		{}
-.          {System.out.println(yyline+1 + ": caracter invalido: "+yytext());}
+[ \t\r\n]+ { /* Ignore whitespace */ }
+. { System.out.println(yyline + ": Invalid character: " + yytext()); }
