@@ -52,7 +52,7 @@ public static int STRING  = 257;
       for (int i = 0; i < argv.length; i++) {
         scanner = null;
         try {
-          scanner = new MeuLexico( new java.io.FileReader(argv[i]) );
+          scanner = new LexicoJson( new java.io.FileReader(argv[i]) );
           while ( !scanner.zzAtEOF ) 	
                 System.out.println("token: "+scanner.yylex()+"\t<"+scanner.yytext()+">");
         }
