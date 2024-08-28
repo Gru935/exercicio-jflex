@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 
 
 %public
-%class LexicoJSON
+%class LexicoJSONv1
 %integer
 %unicode
 %line
@@ -34,11 +34,11 @@ public static int STRING  = 257;
    *               the scanner on.
    */
   public static void main(String argv[]) {
-    LexicoJSON scanner;
+    LexicoJSONv1 scanner;
     if (argv.length == 0) {
       try {        
-          // scanner = new LexicoJSON( System.in );
-          scanner = new LexicoJSON( new InputStreamReader(System.in) );
+          // scanner = new LexicoJSONv1( System.in );
+          scanner = new LexicoJSONv1( new InputStreamReader(System.in) );
           while ( !scanner.zzAtEOF ) 
 	        System.out.println("token: "+scanner.yylex()+"\t<"+scanner.yytext()+">");
         }
@@ -52,7 +52,7 @@ public static int STRING  = 257;
       for (int i = 0; i < argv.length; i++) {
         scanner = null;
         try {
-          scanner = new LexicoJSON( new java.io.FileReader(argv[i]) );
+          scanner = new LexicoJSONv1( new java.io.FileReader(argv[i]) );
           while ( !scanner.zzAtEOF ) 	
                 System.out.println("token: "+scanner.yylex()+"\t<"+scanner.yytext()+">");
         }
